@@ -1,0 +1,32 @@
+version: '3' 
+services:
+  namenode:
+    image: namenode
+    container_name: namenode
+    networks:
+     - nf_lab
+    volumes:
+      - ./data/namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 50070:50070
+      - 8020:8020
+  jupyter-pyspark:
+    image: jupyterlab-pyspark-git
+    container_name: jupyter
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8888:8888
+    networks:
+      - nf_lab
+    volumes:
+      - ./data/jupyter/:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+networks:
+  nf_lab:
+    driver: bridge
