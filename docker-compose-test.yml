@@ -7,7 +7,7 @@ services:
      - nf_lab
     volumes:
       - ./data/namenode:/hadoop/dfs/name
-      - ./data/home:/home/
+      - ./data/home:/home/jovyan
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -22,6 +22,7 @@ services:
       - ./hadoop.env
     ports:
       - 8888:8888
+      - 4040:4040
     networks:
       - nf_lab
     volumes:
