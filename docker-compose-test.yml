@@ -40,5 +40,4 @@ services:
       - ./data/postgres/:/var/lib/postgresql/data
 networks:
   lab:
-    name: Spark
     driver: bridge
