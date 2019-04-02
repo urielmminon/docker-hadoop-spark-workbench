@@ -4,7 +4,7 @@ services:
     image: namenode
     container_name: namenode
     networks:
-     - nf_lab
+     - lab
     volumes:
       - ./data/namenode:/hadoop/dfs/name
       - ./data/home:/home/jovyan
@@ -24,11 +24,21 @@ services:
       - 8888:8888
       - 4040:4040
     networks:
-      - nf_lab
+      - lab
     volumes:
       - ./data/jupyter/:/home/jovyan/work
     environment:
       - JUPYTER_ENABLE_LAB=yes
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    networks:
+      - lab
+    volumes:
+      - ./data/postgres/:/var/lib/postgresql/data
 networks:
-  nf_lab:
+  lab:
+    name: Spark
     driver: bridge
