@@ -26,7 +26,7 @@ services:
     networks:
       - lab
     volumes:
-      - ./data/jupyter/:/home/jovyan/work
+      - ./data/LocalHome/:/home/jovyan/work
     environment:
       - JUPYTER_ENABLE_LAB=yes
   postgres:
