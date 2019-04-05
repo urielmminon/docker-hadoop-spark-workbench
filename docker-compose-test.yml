@@ -1,4 +1,4 @@
-version: '3' 
+version: '2.1' 
 services:
   namenode:
     image: namenode
@@ -15,29 +15,34 @@ services:
     ports:
       - 50070:50070
       - 8020:8020
+    mem_limit: 1G
   jupyter-pyspark:
-    image: jupyterlab-pyspark-git
+    image: jpyspark
     container_name: jupyter
     env_file:
       - ./hadoop.env
     ports:
       - 8888:8888
+      - 8000:8000
       - 4040:4040
     networks:
       - lab
     volumes:
-      - ./data/LocalHome/:/home/jovyan/work
+      - ./data/LocalHome/:/home/
     environment:
       - JUPYTER_ENABLE_LAB=yes
+    mem_limit: 3G
   postgres:
     image: postgres
     container_name: postgres
     ports:
       - 5432:5432
     networks:
-      - lab
+      lab:
+        ipv4_address: 172.23.0.2
     volumes:
       - ./data/postgres/:/var/lib/postgresql/data
+    mem_limit: 512M
 networks:
   lab:
     driver: bridge
